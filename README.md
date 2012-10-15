@@ -1,37 +1,23 @@
-# template-cookbook
+# wharton-jboss-eap6
 
 ## Description
 
-A cool description – preferably wrapped at 80 characters.
+Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 ## Requirements
 
 ### Platforms
 
 * RedHat 6.3 (Santiago)
-* Ubuntu 11.10 (Oneiric)
-* Ubuntu 12.04 (Precise)
-
-### Cookbooks
-
-* apache2
-* logrotate
 
 ## Attributes
 
-* `node["template_cookbook"]["version"]` - Version of template-cookbook to
-  install.
-* `node["template_cookbook"]["user"]` - User for template-cookbook.
-* `node["template_cookbook"]["group"]` - Group for template-cookbook.
+* None yet.
 
 ## Recipes
 
-* `recipe[template-cookbook]` will install template-cookbook.
-* `recipe[template-cookbook::alternate]` will install alternate
-  template-cookbook.
+* `recipe[wharton-jboss-eap6]` will install and enable JBoss EAP 6
 
 ## Usage
 
-A short write-up of any usage specific instructions.  For example, default
-passwords, examples of attributes that alter recipe behavior, and
-auto-discovery of dependant services.
+Add `recipe[wharton-jboss-eap6]` in your run list.
