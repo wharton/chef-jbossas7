@@ -17,5 +17,6 @@
 # limitations under the License.
 #
 
+default["jboss-eap6"]["jbossas"]["ip"] = "127.0.0.1"
 default["jboss-eap6"]["jbossas"]["mgmt-users"] = []
 default["jboss-eap6"]["jbossas"]["mode"] = "standalone"
