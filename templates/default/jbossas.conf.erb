@@ -17,19 +17,19 @@
 # General configuration for the jbossas init.d scripts
 #
 # The username who should own the process.
-JBOSS_USER="jbossas"
+# JBOSS_USER="jbossas"
 #
 # The group in which the username who should own the process belongs to.
-JBOSS_GROUP="jbossas"
+# JBOSS_GROUP="jbossas"
 #
 # The amount of time to wait for startup
-JBOSS_STARTUP_WAIT="60"
+# JBOSS_STARTUP_WAIT="60"
 #
 # The amount of time to wait for shutdown
-JBOSS_SHUTDOWN_WAIT="20"
+# JBOSS_SHUTDOWN_WAIT="20"
 #
 # Location to keep the console log
-JBOSS_CONSOLE_LOG=/var/log/jbossas/$JBOSSCONF/console.log
+# JBOSS_CONSOLE_LOG=/var/log/jbossas/$JBOSSCONF/console.log
 #
 # Location of java in the JRE (the default)
 # JAVA_HOME=/usr/lib/jvm/jre
@@ -37,7 +37,7 @@ JBOSS_CONSOLE_LOG=/var/log/jbossas/$JBOSSCONF/console.log
 # JAVA_HOME=/usr/lib/jvm/java
 #
 # Define where jboss is - this is the directory containing directories appclient, bin, bundles, docs, domain etc
-JBOSS_HOME="/usr/share/jbossas"
+# JBOSS_HOME="/usr/share/jbossas"
 #
 # Make sure java is on your path
 # JAVAPTH="$JAVA_HOME/bin"
@@ -46,10 +46,10 @@ JBOSS_HOME="/usr/share/jbossas"
 JBOSSCONF="<%= node["jboss-eap6"]["mode"] %>"
 #
 # Define the script to use to start jboss
-JBOSSSH="$JBOSS_HOME/bin/$JBOSSCONF.sh"
+# JBOSSSH="$JBOSS_HOME/bin/$JBOSSCONF.sh"
 #
 # Define server configuration to start, eg. standalone.xml
-JBOSS_SERVER_CONFIG=""
+# JBOSS_SERVER_CONFIG=""
 #
 # Define the ip to which the server should bind to
-JBOSS_IP=""
+# JBOSS_IP=""
