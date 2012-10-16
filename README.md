@@ -18,6 +18,9 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
   password for users in JBoss AS ManagementRealm, defaults to []
 * `node["jboss-eap6"]["jbossas"]["mode"]` - JBoss AS server mode - "domain" or "standalone",
   defaults to "standalone"
+* `node["jboss-eap6"]["jbossas"]["server_config"]` - JBoss AS server config file
+  such as "standalone.xml", "host-master.xml", or "host-slave.xml", defaults to
+  ""
 
 ## Recipes
 

@@ -49,7 +49,7 @@ JBOSSCONF="<%= node["jboss-eap6"]["jbossas"]["mode"] %>"
 # JBOSSSH="$JBOSS_HOME/bin/$JBOSSCONF.sh"
 #
 # Define server configuration to start, eg. standalone.xml
-# JBOSS_SERVER_CONFIG=""
+JBOSS_SERVER_CONFIG="<%= node["jboss-eap6"]["jbossas"]["server_config"] %>"
 #
 # Define the ip to which the server should bind to
 JBOSS_IP="<%= node["jboss-eap6"]["jbossas"]["ip"] %>"
