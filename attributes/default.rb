@@ -17,7 +17,13 @@
 # limitations under the License.
 #
 
-default["jboss-eap6"]["jbossas"]["ip"] = "127.0.0.1"
 default["jboss-eap6"]["jbossas"]["mgmt-users"] = []
-default["jboss-eap6"]["jbossas"]["mode"] = "standalone"
-default["jboss-eap6"]["jbossas"]["server_config"] = ""
+default["jboss-eap6"]["jbossas"]["mode"]       = "standalone"
+
+default["jboss-eap6"]["jbossas"]["bind"]["public"]     = "127.0.0.1"
+default["jboss-eap6"]["jbossas"]["bind"]["management"] = "127.0.0.1"
+default["jboss-eap6"]["jbossas"]["bind"]["unsecure"]   = "127.0.0.1"
+
+default["jboss-eap6"]["jbossas"]["domain"]["host_type"]         = "master"
+default["jboss-eap6"]["jbossas"]["domain"]["master"]["address"] = nil
+default["jboss-eap6"]["jbossas"]["domain"]["master"]["port"]    = 9999

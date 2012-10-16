@@ -14,13 +14,17 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 * `node["jboss-eap6"]["jbossas"]["ip"]` - JBoss AS server binding IP, defaults
   to "127.0.0.1"
-* `node["jboss-eap6"]["jbossas"]["mgmt-users"]` - array of hashes with username and
-  password for users in JBoss AS ManagementRealm, defaults to []
-* `node["jboss-eap6"]["jbossas"]["mode"]` - JBoss AS server mode - "domain" or "standalone",
-  defaults to "standalone"
-* `node["jboss-eap6"]["jbossas"]["server_config"]` - JBoss AS server config file
-  such as "standalone.xml", "host-master.xml", or "host-slave.xml", defaults to
-  ""
+* `node["jboss-eap6"]["jbossas"]["mgmt-users"]` - array of hashes with username 
+  and password for users in JBoss AS ManagementRealm, defaults to []
+* `node["jboss-eap6"]["jbossas"]["mode"]` - JBoss AS server mode - "domain" or
+  "standalone", defaults to "standalone"
+
+* `node["jboss-eap6"]["jbossas"]["domain"]["host_type"]` - set host as "master"
+  or "slave" in domain, defaults to "master"
+* `node["jboss-eap6"]["jbossas"]["domain"]["controller"]["address"]` - remote
+  domain controller address, defaults to ""
+* `node["jboss-eap6"]["jbossas"]["domain"]["controller"]["port"]` - remote
+  domain controller port, defaults to 9999
 
 ## Recipes
 

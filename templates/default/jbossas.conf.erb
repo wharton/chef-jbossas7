@@ -37,7 +37,7 @@
 # JAVA_HOME=/usr/lib/jvm/java
 #
 # Define where jboss is - this is the directory containing directories appclient, bin, bundles, docs, domain etc
-# JBOSS_HOME="/usr/share/jbossas"
+JBOSS_HOME="/usr/share/jbossas"
 #
 # Make sure java is on your path
 # JAVAPTH="$JAVA_HOME/bin"
@@ -46,10 +46,22 @@
 JBOSSCONF="<%= node["jboss-eap6"]["jbossas"]["mode"] %>"
 #
 # Define the script to use to start jboss
-# JBOSSSH="$JBOSS_HOME/bin/$JBOSSCONF.sh"
+JBOSSSH="$JBOSS_HOME/bin/$JBOSSCONF.sh"
+JBOSSSH="$JBOSSSH -Djboss.bind.address=<%= node["jboss-eap6"]["jbossas"]["bind"]["public"] %>"
+JBOSSSH="$JBOSSSH -Djboss.bind.address.management=<%= node["jboss-eap6"]["jbossas"]["bind"]["management"] %>"
+JBOSSSH="$JBOSSSH -Djboss.bind.address.unsecure=<%= node["jboss-eap6"]["jbossas"]["bind"]["unsecure"] %>"
+<% if node["jboss-eap6"]["jbossas"]["mode"] == "domain" -%>
+<% if node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "master" -%>
+JBOSSSH="$JBOSSSH --host-config=host-master.xml"
+<% elsif node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "slave" -%>
+JBOSSSH="$JBOSSSH --host-config=host-slave.xml"
+JBOSSSH="$JBOSSSH -Djboss.domain.master.address=<%= node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"] %>"
+JBOSSSH="$JBOSSSH -Djboss.domain.master.port=<%= node["jboss-eap6"]["jbossas"]["domain"]["master"]["port"] %>"
+<% end -%>
+<% end -%>
 #
 # Define server configuration to start, eg. standalone.xml
-JBOSS_SERVER_CONFIG="<%= node["jboss-eap6"]["jbossas"]["server_config"] %>"
+# JBOSS_SERVER_CONFIG=""
 #
 # Define the ip to which the server should bind to
-JBOSS_IP="<%= node["jboss-eap6"]["jbossas"]["ip"] %>"
+# JBOSS_IP=""
