@@ -44,6 +44,7 @@ template "/etc/jbossas/jbossas.conf" do
   owner "jboss"
   group "jboss"
   mode "0644"
+  notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
 template "/etc/jbossas/domain/mgmt-users.properties" do
