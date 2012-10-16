@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-default["jboss-eap6"]["mgmt-users"] = []
-default["jboss-eap6"]["mode"] = "standalone"
+default["jboss-eap6"]["jbossas"]["mgmt-users"] = []
+default["jboss-eap6"]["jbossas"]["mode"] = "standalone"

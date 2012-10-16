@@ -3,6 +3,6 @@
 #  Local modifications will be overwritten by Chef.
 #
 
-<% node["jboss-eap6"]["mgmt-users"].each do |mgmt_user| -%>
+<% node["jboss-eap6"]["jbossas"]["mgmt-users"].each do |mgmt_user| -%>
 <%= mgmt_user["username"] %>=<%= mgmt_user["password"] %>
 <% end -%>
