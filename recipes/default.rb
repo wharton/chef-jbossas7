@@ -38,3 +38,17 @@ service "jbossas" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
 end
+
+template "/etc/jbossas/domain/mgmt-users.properties" do
+  source "mgmt-users.properties.erb"
+  owner "jboss"
+  group "jboss"
+  mode "0644"
+end
+
+template "/etc/jbossas/standalone/mgmt-users.properties" do
+  source "mgmt-users.properties.erb"
+  owner "jboss"
+  group "jboss"
+  mode "0644"
+end
