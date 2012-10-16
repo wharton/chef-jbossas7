@@ -9,7 +9,7 @@ packages = %w{
   jbossas-modules-eap
   jbossas-product-eap
   jbossas-standalone
-  jbassas-welcome-content-eap
+  jbossas-welcome-content-eap
 }
 
 packages.each do |pkg|
