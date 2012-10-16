@@ -14,6 +14,8 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 * `node["jboss-eap6"]["mgmt-users"]` - array of hashes with username and
   password for users in ManagementRealm, defaults to []
+* `node["jboss-eap6"]["mode"]` - JBoss server mode - "domain" or "standalone",
+  defaults to "standalone"
 
 ## Recipes
 

@@ -18,3 +18,4 @@
 #
 
 default["jboss-eap6"]["mgmt-users"] = []
+default["jboss-eap6"]["mode"] = "standalone"
