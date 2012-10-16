@@ -36,7 +36,7 @@ end
 
 service "jbossas" do
   supports :status => true, :restart => true, :reload => true
-  action [ :enable ]
+  action [ :enable, :start ]
 end
 
 template "/etc/jbossas/jbossas.conf" do
@@ -59,8 +59,4 @@ template "/etc/jbossas/standalone/mgmt-users.properties" do
   owner "jboss"
   group "jboss"
   mode "0644"
-end
-
-service "jbossas" do
-  action [ :start ]
 end
