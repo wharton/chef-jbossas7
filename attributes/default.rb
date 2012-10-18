@@ -19,6 +19,18 @@
 
 default["jboss-eap6"]["jbossas"]["mgmt-users"] = []
 default["jboss-eap6"]["jbossas"]["mode"]       = "standalone"
+default["jboss-eap6"]["jbossas"]["packages"] = %w{
+  jbossas-appclient
+  jbossas-bundles
+  jbossas-core
+  jbossas-domain
+  jbossas-hornetq-native
+  jbossas-jbossweb-native
+  jbossas-modules-eap
+  jbossas-product-eap
+  jbossas-standalone
+  jbossas-welcome-content-eap
+}
 
 default["jboss-eap6"]["jbossas"]["bind"]["public"]     = "127.0.0.1"
 default["jboss-eap6"]["jbossas"]["bind"]["management"] = "127.0.0.1"

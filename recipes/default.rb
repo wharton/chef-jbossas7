@@ -17,20 +17,7 @@
 # limitations under the License.
 #
 
-packages = %w{
-	jbossas-appclient
-  jbossas-bundles
-  jbossas-core
-  jbossas-domain
-  jbossas-hornetq-native
-  jbossas-jbossweb-native
-  jbossas-modules-eap
-  jbossas-product-eap
-  jbossas-standalone
-  jbossas-welcome-content-eap
-}
-
-packages.each do |pkg|
+node["jboss-eap6"]["jbossas"]["packages"].each do |pkg|
   package pkg
 end
 

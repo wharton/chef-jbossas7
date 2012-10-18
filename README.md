@@ -16,6 +16,8 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
   and password for users in JBoss AS ManagementRealm, defaults to []
 * `node["jboss-eap6"]["jbossas"]["mode"]` - JBoss AS server mode - "domain" or
   "standalone", defaults to "standalone"
+* `node["jboss-eap6"]["jbossas"]["packages"]` - JBoss AS server installation
+  packages, see defaults in `attributes/default.rb`
 
 * `node["jboss-eap6"]["jbossas"]["bind"]["management"]` - JBoss AS server
   binding IP for management interface, defaults to "127.0.0.1"
