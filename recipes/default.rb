@@ -63,7 +63,7 @@ if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbos
 end
 
 if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "master"
-  search(:node, "chef_environment:#{node["chef_environment"]} AND recipes:wharton-jboss-eap6") do |jboss_node|
+  search(:node, "chef_environment:#{node.chef_environment} AND recipes:wharton-jboss-eap6") do |jboss_node|
     if jboss_node["jboss-eap6"]["jbossas"]["domain"]["host_type"] = "slave"
       jboss_node_hostname = jboss_node["jboss-eap6"]["jbossas"]["hostname"]
       node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{jboss_node_hostname}"] = jboss_node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{jboss_node_hostname}"]
