@@ -36,7 +36,7 @@ template "/etc/jbossas/jbossas.conf" do
   notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
-if JBossEAP6::JBossAS.domain_slave?
+if domain_slave?
   JBossEAP6::JBossAS.create_hostname_mgmt_user unless JBossEAP6::JBossAS.hostname_mgmt_user
 
   template "#{mode_config_dir}/host-slave.xml" do
