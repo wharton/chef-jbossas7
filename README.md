@@ -12,8 +12,9 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 ## Attributes
 
-* `node["jboss-eap6"]["jbossas"]["mgmt-users"]` - array of hashes with username 
-  and password for users in JBoss AS ManagementRealm, defaults to []
+* `node["jboss-eap6"]["jbossas"]["mgmt-users"]` - array of hashes with username,
+  password hash, and secret for users in JBoss AS ManagementRealm, defaults to
+  []
 * `node["jboss-eap6"]["jbossas"]["mode"]` - JBoss AS server mode - "domain" or
   "standalone", defaults to "standalone"
 * `node["jboss-eap6"]["jbossas"]["packages"]` - JBoss AS server installation
@@ -39,6 +40,8 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 ## Usage
 
+* If you don't already have a ManagementRealm username, password hash, and
+  secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
 * Configure attributes as necessary, you'll probably want to configure most of
   them unless its a test standalone instance (for Vagrant, etc.) - examples
   below
@@ -53,7 +56,11 @@ Example attributes with localhost management interface:
           "public" => "0.0.0.0"
         },
         "mgmt-users" => [
-          { "username" => "admin", "password" => "add-user.sh-hash-of-password" }
+          { 
+            "username" => "admin",
+            "password" => "add-user.sh-hash-of-password",
+            "secret" => "add-user.sh-secret-of-password"
+          }
         ]
       }
     }
@@ -67,7 +74,11 @@ Example attributes with remotely accessible management interface:
           "management" => "0.0.0.0"
         },
         "mgmt-users" => [
-          { "username" => "admin", "password" => "add-user.sh-hash-of-password" }
+          { 
+            "username" => "admin",
+            "password" => "add-user.sh-hash-of-password",
+            "secret" => "add-user.sh-secret-of-password"
+          }
         ],
         "mode" => "domain"
       }
@@ -88,7 +99,11 @@ interfaces:
           "master" => { "address" => "X.X.X.X" }
         }
         "mgmt-users" => [
-          { "username" => "admin", "password" => "add-user.sh-hash-of-password" }
+          { 
+            "username" => "admin",
+            "password" => "add-user.sh-hash-of-password",
+            "secret" => "add-user.sh-secret-of-password"
+          }
         ],
         "mode" => "domain"
       }
