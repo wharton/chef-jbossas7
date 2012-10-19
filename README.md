@@ -36,6 +36,8 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
   domain master address, defaults to ""
 * `node["jboss-eap6"]["jbossas"]["domain"]["master"]["port"]` - remote
   domain master port, defaults to 9999
+* `node["jboss-eap6"]["jbossas"]["domain"]["name"]` - for multiple clusters,
+  defaults to nil
 
 ## Recipes
 
@@ -43,18 +45,10 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 ## Usage
 
+### Public Standalone Instance
+
 * If you don't already have a ManagementRealm username, password hash, and
   secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
-* If you're planning on running domain mode, each
-  `node["jboss-eap6"]["jbossas"]["hostname"]` MUST have a corresponding
-  username, password hash, and secret, generate these via
-  `$JBOSS_HOME/bin/add-user.sh` as well
-* Configure attributes as necessary, you'll probably want to configure most of
-  them unless its a test standalone instance (for Vagrant, etc.) - examples
-  below with extra requirements
-* Add `recipe[wharton-jboss-eap6]` in your run list.
-
-### Public Standalone Instance
 
 Example attributes with localhost management interface:
     "jboss-eap6" => {
@@ -71,10 +65,15 @@ Example attributes with localhost management interface:
       }
     }
 
-### Domain Master Instance
+### Domain Instances
 
-_PLEASE NOTE_: you MUST create a mgmt-user that matches
-`node["jboss-eap6"]["jbossas"]["hostname"]`
+* If you don't already have a ManagementRealm username, password hash, and
+  secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
+* Create a master instance
+* Create slave instances (startup will fail the first time; its okay! the master
+  needs to reconverge with the new slave authentication data, then it'll start)
+
+### Domain Master Instance
 
 Example attributes with remotely accessible management interface:
     "jboss-eap6" => {
@@ -86,14 +85,6 @@ Example attributes with remotely accessible management interface:
           "admin" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
-          },
-          "master" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
-          },
-          "slave1" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
           }
         },
         "mode" => "domain"
@@ -102,8 +93,9 @@ Example attributes with remotely accessible management interface:
 
 ### Domain Slave Instance
 
-_PLEASE NOTE_: you MUST create a mgmt-user that matches
-`node["jboss-eap6"]["jbossas"]["hostname"]` - "slave1" in example below.
+_PLEASE NOTE_: you can omit
+`node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]` - it will
+auto-discover if possible
 
 Example attributes with remotely accessible management (required) and public
 interfaces:
@@ -119,14 +111,6 @@ interfaces:
         }
         "mgmt-users" => {
           "admin" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
-          },
-          "master" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
-          },
-          "slave1" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
           }
