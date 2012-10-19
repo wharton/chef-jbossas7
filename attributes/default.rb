@@ -40,3 +40,4 @@ default["jboss-eap6"]["jbossas"]["bind"]["unsecure"]   = "127.0.0.1"
 default["jboss-eap6"]["jbossas"]["domain"]["host_type"]         = "master"
 default["jboss-eap6"]["jbossas"]["domain"]["master"]["address"] = nil
 default["jboss-eap6"]["jbossas"]["domain"]["master"]["port"]    = 9999
+default["jboss-eap6"]["jbossas"]["domain"]["name"]              = nil
