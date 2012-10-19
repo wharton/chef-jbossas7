@@ -74,7 +74,7 @@ Example attributes with localhost management interface:
 ### Domain Master Instance
 
 _PLEASE NOTE_: you MUST create a mgmt-user that matches
-`node["jboss-eap6"]["jbossas"]["hostname"]` - "slave1" in example below.
+`node["jboss-eap6"]["jbossas"]["hostname"]`
 
 Example attributes with remotely accessible management interface:
     "jboss-eap6" => {
@@ -84,6 +84,10 @@ Example attributes with remotely accessible management interface:
         },
         "mgmt-users" => {
           "admin" => {
+            "password" => "add-user.sh-hash-of-password",
+            "secret" => "add-user.sh-secret-of-password"
+          },
+          "master" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
           },
@@ -115,6 +119,10 @@ interfaces:
         }
         "mgmt-users" => {
           "admin" => {
+            "password" => "add-user.sh-hash-of-password",
+            "secret" => "add-user.sh-secret-of-password"
+          },
+          "master" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
           },
