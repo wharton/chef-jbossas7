@@ -20,6 +20,7 @@
 class Chef::Recipe::JBossEAP6
   class JBossAS
     def self.add_domain_slaves_mgmt_users(master)
+      Chef::Log.info("Adding JBoss AS slave mgmt-users for domain authentication")
       domain_slaves(master).each do |slave|
         add_hostname_mgmt_user(master,slave)
       end
