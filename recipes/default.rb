@@ -39,6 +39,7 @@ end
 if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "slave"
   hostname_mgmt_user = node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"]
   unless hostname_mgmt_user
+    Chef::Log.info("Creating JBoss AS mgmt-user for domain authentication")
     require 'base64'
     require 'digest'
     require 'securerandom'
