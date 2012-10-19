@@ -36,21 +36,21 @@ template "/etc/jbossas/jbossas.conf" do
   notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
-if domain_slave?
-  JBossEAP6::JBossAS.create_hostname_mgmt_user unless JBossEAP6::JBossAS.hostname_mgmt_user
+if JBossEAP6::JBossAS.domain_slave?(node)
+  JBossEAP6::JBossAS.create_hostname_mgmt_user(node) unless JBossEAP6::JBossAS.hostname_mgmt_user(node)
 
   template "#{mode_config_dir}/host-slave.xml" do
     source "host-slave-initial.xml.erb"
     owner "jboss"
     group "jboss"
     mode "0644"
-    variables :secret => JBossEAP6::JBossAS.hostname_mgmt_user["secret"]
+    variables :secret => JBossEAP6::JBossAS.hostname_mgmt_user(node)["secret"]
     only_if "grep -q 'c2xhdmVfdXNlcl9wYXNzd29yZA==' /etc/jbossas/domain/host-slave.xml"
     notifies :restart, resources(:service => "jbossas"), :delayed
   end
 end
 
-JBossEAP6::JBossAS.add_domain_slaves_mgmt_users if JBossEAP6::JBossAS.domain_master?
+JBossEAP6::JBossAS.add_domain_slaves_mgmt_users(node) if JBossEAP6::JBossAS.domain_master?(node)
 
 template "#{mode_config_dir}/mgmt-users.properties" do
   source "mgmt-users.properties.erb"
