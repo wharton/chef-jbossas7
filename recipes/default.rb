@@ -69,7 +69,7 @@ if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbos
   end
 end
 
-template "/#{mode_config_dir}/mgmt-users.properties" do
+template "#{mode_config_dir}/mgmt-users.properties" do
   source "mgmt-users.properties.erb"
   owner "jboss"
   group "jboss"
