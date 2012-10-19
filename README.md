@@ -45,6 +45,10 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 * If you don't already have a ManagementRealm username, password hash, and
   secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
+* If you're planning on running domain mode, each
+  `node["jboss-eap6"]["jbossas"]["hostname"]` MUST have a corresponding
+  username, password hash, and secret, generate these via
+  `$JBOSS_HOME/bin/add-user.sh` as well
 * Configure attributes as necessary, you'll probably want to configure most of
   them unless its a test standalone instance (for Vagrant, etc.) - examples
   below with extra requirements
@@ -58,12 +62,12 @@ Example attributes with localhost management interface:
         "bind" => {
           "public" => "0.0.0.0"
         },
-        "mgmt-users" => [
+        "mgmt-users" => {
           "admin" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
           }
-        ]
+        }
       }
     }
 
@@ -78,7 +82,7 @@ Example attributes with remotely accessible management interface:
         "bind" => {
           "management" => "0.0.0.0"
         },
-        "mgmt-users" => [
+        "mgmt-users" => {
           "admin" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
@@ -87,7 +91,7 @@ Example attributes with remotely accessible management interface:
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
           }
-        ],
+        },
         "mode" => "domain"
       }
     }
@@ -109,7 +113,7 @@ interfaces:
           "host_type" => "slave",
           "master" => { "address" => "X.X.X.X" }
         }
-        "mgmt-users" => [
+        "mgmt-users" => {
           "admin" => {
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
@@ -118,7 +122,7 @@ interfaces:
             "password" => "add-user.sh-hash-of-password",
             "secret" => "add-user.sh-secret-of-password"
           }
-        ],
+        },
         "mode" => "domain"
       }
     }
