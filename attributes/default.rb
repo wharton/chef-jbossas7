@@ -17,9 +17,10 @@
 # limitations under the License.
 #
 
+default["jboss-eap6"]["jbossas"]["hostname"]   = node["hostname"].gsub(/[-_]/,"")
 default["jboss-eap6"]["jbossas"]["mgmt-users"] = []
 default["jboss-eap6"]["jbossas"]["mode"]       = "standalone"
-default["jboss-eap6"]["jbossas"]["packages"] = %w{
+default["jboss-eap6"]["jbossas"]["packages"]   = %w{
   jbossas-appclient
   jbossas-bundles
   jbossas-core

@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+secret = node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"]["secret"]
+
 node["jboss-eap6"]["jbossas"]["packages"].each do |pkg|
   package pkg
 end
@@ -40,7 +42,7 @@ if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbos
     owner "jboss"
     group "jboss"
     mode "0644"
-    variables :secret => node["jboss-eap6"]["jbossas"]["mgmt-users"][0]["secret"]
+    variables :secret => secret
     only_if "grep -q 'c2xhdmVfdXNlcl9wYXNzd29yZA==' /etc/jbossas/domain/host-slave.xml"
     notifies :restart, resources(:service => "jbossas"), :delayed
   end
