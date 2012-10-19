@@ -44,27 +44,18 @@ class Chef::Recipe::JBossEAP6
       new_hostname_mgmt_user
     end
 
-    def self.domain_master?
-      domain_master?(@node)
-    end
-
-    def self.domain_master?(node)
+    def self.domain_master?(node = nil)
+      node ||= @node
       domain_mode?(node) && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "master"
     end
-    
-    def self.domain_mode?
-      domain_mode?(@node)
-    end
 
-    def self.domain_mode?(node)
+    def self.domain_mode?(node = nil)
+      node ||= @node
       node["jboss-eap6"]["jbossas"]["mode"] == "domain"
     end
-
-    def self.domain_slave?
-      domain_slave?(@node)
-    end
     
-    def self.domain_slave?(node)
+    def self.domain_slave?(node = nil)
+      node ||= @node
       domain_mode?(node) && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "slave"
     end
 
@@ -80,11 +71,8 @@ class Chef::Recipe::JBossEAP6
       domain_slave? && @node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]
     end
 
-    def self.hostname_mgmt_user
-      hostname_mgmt_user(@node)
-    end
-
-    def self.hostname_mgmt_user(node)
+    def self.hostname_mgmt_user(node = nil)
+      node ||= @node
       node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"]
     end
 
