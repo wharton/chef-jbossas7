@@ -19,18 +19,18 @@
 
 class Chef::Recipe::JBossEAP6
   class JBossAS
-    def add_domain_slaves_mgmt_users
+    def self.add_domain_slaves_mgmt_users
       domain_slaves.each do |domain_slave|
         add_hostname_mgmt_user(domain_slave)
       end
     end
 
-    def add_hostname_mgmt_user(node2)
+    def self.add_hostname_mgmt_user(node2)
       node2_hostname = node2["jboss-eap6"]["jbossas"]["hostname"]
       @node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node2_hostname}"] = node2["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node2_hostname}"]
     end
 
-    def create_hostname_mgmt_user
+    def self.create_hostname_mgmt_user
       Chef::Log.info("Creating JBoss AS mgmt-user for domain authentication")
       require 'base64'
       require 'digest'
@@ -44,22 +44,22 @@ class Chef::Recipe::JBossEAP6
       new_hostname_mgmt_user
     end
 
-    def domain_master?(node = nil)
+    def self.domain_master?(node = nil)
       node ||= @node
       domain_mode?(node) && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "master"
     end
 
-    def domain_mode?(node = nil)
+    def self.domain_mode?(node = nil)
       node ||= @node
       node["jboss-eap6"]["jbossas"]["mode"] == "domain"
     end
     
-    def domain_slave?(node = nil)
+    def self.domain_slave?(node = nil)
       node ||= @node
       domain_mode?(node) && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "slave"
     end
 
-    def domain_slaves
+    def self.domain_slaves
       slave_nodes = []
       search(:node, "chef_environment:#{@node.chef_environment} AND recipes:wharton-jboss-eap6") do |jboss_node|
         slave_nodes << jboss_node if domain_slave?(jboss_node) && in_same_domain?(jboss_node)
@@ -67,16 +67,16 @@ class Chef::Recipe::JBossEAP6
       slave_nodes
     end
 
-    def has_domain_master?
+    def self.has_domain_master?
       domain_slave? && @node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]
     end
 
-    def hostname_mgmt_user(node = nil)
+    def self.hostname_mgmt_user(node = nil)
       node ||= @node
       node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"]
     end
 
-    def in_same_domain?(node2)
+    def self.in_same_domain?(node2)
       @node["jboss-eap6"]["jbossas"]["domain"]["name"] == node2["jboss-eap6"]["jbossas"]["domain"]["name"]
     end
   end
