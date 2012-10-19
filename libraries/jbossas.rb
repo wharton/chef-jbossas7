@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-require 'chef/search/query'
-
 class Chef::Recipe::JBossEAP6
   class JBossAS
     def self.add_domain_slaves_mgmt_users(master)
@@ -59,7 +57,7 @@ class Chef::Recipe::JBossEAP6
 
     def self.domain_slaves(master)
       slave_nodes = []
-      search(:node, "chef_environment:#{master.chef_environment} AND recipes:wharton-jboss-eap6") do |jboss_node|
+      Chef::Search::Query.new.search(:node, "chef_environment:#{master.chef_environment} AND recipes:wharton-jboss-eap6") do |jboss_node|
         slave_nodes << jboss_node if domain_slave?(jboss_node) && in_same_domain?(master,jboss_node)
       end
       slave_nodes
