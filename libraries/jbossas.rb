@@ -76,7 +76,7 @@ class Chef::Recipe::JBossEAP6
     end
 
     def self.has_domain_master?(node)
-      domain_slave?(node) && @node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]
+      domain_slave?(node) && node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]
     end
 
     def self.hostname_mgmt_user(node)
