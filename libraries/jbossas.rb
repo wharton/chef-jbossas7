@@ -20,14 +20,13 @@
 class Chef::Recipe::JBossEAP6
   class JBossAS
     def self.add_domain_slaves_mgmt_users(master)
-      domain_slaves(master).each do |domain_slave|
-        add_hostname_mgmt_user(domain_slave)
+      domain_slaves(master).each do |slave|
+        add_hostname_mgmt_user(master,slave)
       end
     end
 
-    def self.add_hostname_mgmt_user(node2)
-      node2_hostname = node2["jboss-eap6"]["jbossas"]["hostname"]
-      @node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node2_hostname}"] = node2["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node2_hostname}"]
+    def self.add_hostname_mgmt_user(node,node2)
+      node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node2["jboss-eap6"]["jbossas"]["hostname"]}"] = hostname_mgmt_user(node2)
     end
 
     def self.create_hostname_mgmt_user(node)
