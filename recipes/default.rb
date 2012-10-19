@@ -36,40 +36,21 @@ template "/etc/jbossas/jbossas.conf" do
   notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
-if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "slave"
-  hostname_mgmt_user = node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"]
-  unless hostname_mgmt_user
-    Chef::Log.info("Creating JBoss AS mgmt-user for domain authentication")
-    require 'base64'
-    require 'digest'
-    require 'securerandom'
-    password = SecureRandom.urlsafe_base64(16)
-    hostname_mgmt_user = {
-      "password" => Digest::MD5.hexdigest(password),
-      "secret" => Base64.strict_encode64(password)
-    }
-    node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"] = hostname_mgmt_user
-  end
+if JBossEAP6::JBossAS.domain_slave?
+  JBossEAP6::JBossAS.create_hostname_mgmt_user unless JBossEAP6::JBossAS.hostname_mgmt_user
 
   template "#{mode_config_dir}/host-slave.xml" do
     source "host-slave-initial.xml.erb"
     owner "jboss"
     group "jboss"
     mode "0644"
-    variables :secret => hostname_mgmt_user["secret"]
+    variables :secret => JBossEAP6::JBossAS.hostname_mgmt_user["secret"]
     only_if "grep -q 'c2xhdmVfdXNlcl9wYXNzd29yZA==' /etc/jbossas/domain/host-slave.xml"
     notifies :restart, resources(:service => "jbossas"), :delayed
   end
 end
 
-if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "master"
-  search(:node, "chef_environment:#{node.chef_environment} AND recipes:wharton-jboss-eap6") do |jboss_node|
-    if jboss_node["jboss-eap6"]["jbossas"]["domain"]["host_type"] = "slave"
-      jboss_node_hostname = jboss_node["jboss-eap6"]["jbossas"]["hostname"]
-      node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{jboss_node_hostname}"] = jboss_node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{jboss_node_hostname}"]
-    end
-  end
-end
+JBossEAP6::JBossAS.add_domain_slaves_mgmt_users if JBossEAP6::JBossAS.domain_master?
 
 template "#{mode_config_dir}/mgmt-users.properties" do
   source "mgmt-users.properties.erb"
