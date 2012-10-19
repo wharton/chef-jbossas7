@@ -2,7 +2,9 @@
 
 ## Description
 
-Installs/configures Red Hat JBoss Enterprise Application Platform 6
+Installs/configures Red Hat JBoss Enterprise Application Platform 6.
+Automatically can create standalone instances or a secure and complete JBoss
+domain setup.
 
 ## Requirements
 
@@ -49,6 +51,8 @@ Installs/configures Red Hat JBoss Enterprise Application Platform 6
 
 * If you don't already have a ManagementRealm username, password hash, and
   secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
+* Create attributes, example below
+* Add `recipe[wharton-jboss-eap6]` to your node's run list
 
 Example attributes with localhost management interface:
     "jboss-eap6" => {
@@ -69,9 +73,13 @@ Example attributes with localhost management interface:
 
 * If you don't already have a ManagementRealm username, password hash, and
   secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
-* Create a master instance
-* Create slave instances (startup will fail the first time; its okay! the master
-  needs to reconverge with the new slave authentication data, then it'll start)
+* Create attributes for master instance, example below
+* Add `recipe[wharton-jboss-eap6]` to your master's run list and run it
+* Create attributes for slave instances, example below
+* Add `recipe[wharton-jboss-eap6]` to your slaves' run list and run it
+  * _note_: startup will fail the first time; its okay! the master needs to
+    reconverge with the new slave authentication data before the slave will
+    start
 
 ### Domain Master Instance
 
