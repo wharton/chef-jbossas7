@@ -18,6 +18,7 @@
 #
 
 mode_config_dir = "/etc/jbossas/#{node["jboss-eap6"]["jbossas"]["mode"]}"
+JBossEAP6::JBossAS.add_domain_master(node) unless JBossEAP6::JBossAS.has_domain_master?(node)
 
 node["jboss-eap6"]["jbossas"]["packages"].each do |pkg|
   package pkg

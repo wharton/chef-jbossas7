@@ -19,6 +19,10 @@
 
 class Chef::Recipe::JBossEAP6
   class JBossAS
+    def self.add_domain_master(slave)
+      slave["jboss-eap6"]["jbossas"]["domain"]["master"]["address"] = domain_master(slave)["hostname"]
+    end
+
     def self.add_domain_slaves_mgmt_users(master)
       Chef::Log.info("Adding JBoss AS slave mgmt-users for domain authentication")
       domain_slaves(master).each do |slave|
@@ -42,6 +46,13 @@ class Chef::Recipe::JBossEAP6
       }
       node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"] = new_hostname_mgmt_user
       new_hostname_mgmt_user
+    end
+
+    def self.domain_master(slave)
+      Chef::Search::Query.new.search(:node, "chef_environment:#{slave.chef_environment} AND recipes:wharton-jboss-eap6") do |jboss_node|
+        return jboss_node if domain_master?(jboss_node) && in_same_domain?(slave,jboss_node)
+      end
+      Chef::Log.fatal("Could not find JBoss AS domain master for node")
     end
 
     def self.domain_master?(node)
