@@ -47,6 +47,7 @@ if node["jboss-eap6"]["jbossas"]["mode"] == "domain" && node["jboss-eap6"]["jbos
       "password" => Digest::MD5.hexdigest(password),
       "secret" => Base64.strict_encode64(password)
     }
+    node["jboss-eap6"]["jbossas"]["mgmt-users"]["#{node["jboss-eap6"]["jbossas"]["hostname"]}"] = hostname_mgmt_user
   end
 
   template "#{mode_config_dir}/host-slave.xml" do
