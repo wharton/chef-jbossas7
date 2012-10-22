@@ -43,20 +43,20 @@ JBOSS_HOME="/usr/share/jbossas"
 # JAVAPTH="$JAVA_HOME/bin"
 #
 # Define jboss configuration to start
-JBOSSCONF="<%= node["jboss-eap6"]["jbossas"]["mode"] %>"
+JBOSSCONF="<%= node["jbossas7"]["mode"] %>"
 #
 # Define the script to use to start jboss
 JBOSSSH="$JBOSS_HOME/bin/$JBOSSCONF.sh"
-JBOSSSH="$JBOSSSH -Djboss.bind.address=<%= node["jboss-eap6"]["jbossas"]["bind"]["public"] %>"
-JBOSSSH="$JBOSSSH -Djboss.bind.address.management=<%= node["jboss-eap6"]["jbossas"]["bind"]["management"] %>"
-JBOSSSH="$JBOSSSH -Djboss.bind.address.unsecure=<%= node["jboss-eap6"]["jbossas"]["bind"]["unsecure"] %>"
-<% if node["jboss-eap6"]["jbossas"]["mode"] == "domain" -%>
-<% if node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "master" -%>
+JBOSSSH="$JBOSSSH -Djboss.bind.address=<%= node["jbossas7"]["bind"]["public"] %>"
+JBOSSSH="$JBOSSSH -Djboss.bind.address.management=<%= node["jbossas7"]["bind"]["management"] %>"
+JBOSSSH="$JBOSSSH -Djboss.bind.address.unsecure=<%= node["jbossas7"]["bind"]["unsecure"] %>"
+<% if node["jbossas7"]["mode"] == "domain" -%>
+<% if node["jbossas7"]["domain"]["host_type"] == "master" -%>
 JBOSSSH="$JBOSSSH --host-config=host-master.xml"
-<% elsif node["jboss-eap6"]["jbossas"]["domain"]["host_type"] == "slave" -%>
+<% elsif node["jbossas7"]["domain"]["host_type"] == "slave" -%>
 JBOSSSH="$JBOSSSH --host-config=host-slave.xml"
-JBOSSSH="$JBOSSSH -Djboss.domain.master.address=<%= node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"] %>"
-JBOSSSH="$JBOSSSH -Djboss.domain.master.port=<%= node["jboss-eap6"]["jbossas"]["domain"]["master"]["port"] %>"
+JBOSSSH="$JBOSSSH -Djboss.domain.master.address=<%= node["jbossas7"]["domain"]["master"]["address"] %>"
+JBOSSSH="$JBOSSSH -Djboss.domain.master.port=<%= node["jbossas7"]["domain"]["master"]["port"] %>"
 <% end -%>
 <% end -%>
 #

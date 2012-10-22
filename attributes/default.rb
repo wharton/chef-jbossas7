@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: wharton-jboss-eap6
+# Cookbook Name:: jbossas7
 # Recipe:: default
 #
 # Copyright 2012
@@ -17,10 +17,21 @@
 # limitations under the License.
 #
 
-default["jboss-eap6"]["jbossas"]["hostname"]   = node["hostname"].gsub(/[-_]/,"")
-default["jboss-eap6"]["jbossas"]["mgmt-users"] = []
-default["jboss-eap6"]["jbossas"]["mode"]       = "standalone"
-default["jboss-eap6"]["jbossas"]["packages"]   = %w{
+default["jbossas7"]["home"]       = "/usr/share/jbossas"
+default["jbossas7"]["hostname"]   = node["hostname"].gsub(/[-_]/,"")
+default["jbossas7"]["mgmt-users"] = []
+default["jbossas7"]["mode"]       = "standalone"
+
+default["jbossas7"]["bind"]["public"]     = "127.0.0.1"
+default["jbossas7"]["bind"]["management"] = "127.0.0.1"
+default["jbossas7"]["bind"]["unsecure"]   = "127.0.0.1"
+
+default["jbossas7"]["domain"]["host_type"]         = "master"
+default["jbossas7"]["domain"]["master"]["address"] = nil
+default["jbossas7"]["domain"]["master"]["port"]    = 9999
+default["jbossas7"]["domain"]["name"]              = nil
+
+default["jbossas7"]["eap6"]["packages"] = %w{
   jbossas-appclient
   jbossas-bundles
   jbossas-core
@@ -32,12 +43,3 @@ default["jboss-eap6"]["jbossas"]["packages"]   = %w{
   jbossas-standalone
   jbossas-welcome-content-eap
 }
-
-default["jboss-eap6"]["jbossas"]["bind"]["public"]     = "127.0.0.1"
-default["jboss-eap6"]["jbossas"]["bind"]["management"] = "127.0.0.1"
-default["jboss-eap6"]["jbossas"]["bind"]["unsecure"]   = "127.0.0.1"
-
-default["jboss-eap6"]["jbossas"]["domain"]["host_type"]         = "master"
-default["jboss-eap6"]["jbossas"]["domain"]["master"]["address"] = nil
-default["jboss-eap6"]["jbossas"]["domain"]["master"]["port"]    = 9999
-default["jboss-eap6"]["jbossas"]["domain"]["name"]              = nil

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: jbossas7
-# Recipe:: default
+# Recipe:: eap6
 #
 # Copyright 2012
 #
@@ -17,6 +17,13 @@
 # limitations under the License.
 #
 
-# To-Do!
+node["jbossas7"]["eap6"]["packages"].each do |pkg|
+  package pkg
+end
+
+service "jbossas" do
+  supports :status => true, :restart => true, :reload => true
+  action :enable
+end
 
 include_recipe "jbossas7::configuration"

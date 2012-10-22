@@ -1,9 +1,9 @@
-# wharton-jboss-eap6
+# chef-jbossas7
 
 ## Description
 
-Installs/configures Red Hat JBoss Enterprise Application Platform 6.
-Automatically can create standalone instances or a secure and complete JBoss
+Installs/configures JBoss AS 7 or Red Hat JBoss Enterprise Application Platform
+6. Automatically can create standalone instances or a secure and complete JBoss
 domain setup.
 
 ## Requirements
@@ -14,36 +14,39 @@ domain setup.
 
 ## Attributes
 
-* `node["jboss-eap6"]["jbossas"]["hostname"]` - alpha-numeric ONLY JBoss AS
+* `node["jbossas7"]["hostname"]` - alpha-numeric ONLY JBoss AS
   server name used in domain mode (must match with mgmt-user entry), defaults to
   `node["hostname"].gsub(/[-_]/,"")`
-* `node["jboss-eap6"]["jbossas"]["mgmt-users"]` - array of hashes with username,
+* `node["jbossas7"]["mgmt-users"]` - array of hashes with username,
   password hash, and secret for users in JBoss AS ManagementRealm, defaults to
   []
-* `node["jboss-eap6"]["jbossas"]["mode"]` - JBoss AS server mode - "domain" or
+* `node["jbossas7"]["mode"]` - JBoss AS server mode - "domain" or
   "standalone", defaults to "standalone"
-* `node["jboss-eap6"]["jbossas"]["packages"]` - JBoss AS server installation
+* `node["jbossas7"]["packages"]` - JBoss AS server installation
   packages, see defaults in `attributes/default.rb`
 
-* `node["jboss-eap6"]["jbossas"]["bind"]["management"]` - JBoss AS server
+* `node["jbossas7"]["bind"]["management"]` - JBoss AS server
   binding IP for management interface, defaults to "127.0.0.1"
-* `node["jboss-eap6"]["jbossas"]["bind"]["public"]` - JBoss AS server binding IP
+* `node["jbossas7"]["bind"]["public"]` - JBoss AS server binding IP
   for public interface, defaults to "127.0.0.1"
-* `node["jboss-eap6"]["jbossas"]["bind"]["unsecure"]` - JBoss AS server binding
+* `node["jbossas7"]["bind"]["unsecure"]` - JBoss AS server binding
   IP for unsecure interface, defaults to "127.0.0.1"
 
-* `node["jboss-eap6"]["jbossas"]["domain"]["host_type"]` - set host as "master"
+* `node["jbossas7"]["domain"]["host_type"]` - set host as "master"
   or "slave" in domain, defaults to "master"
-* `node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]` - remote
+* `node["jbossas7"]["domain"]["master"]["address"]` - remote
   domain master address, defaults to ""
-* `node["jboss-eap6"]["jbossas"]["domain"]["master"]["port"]` - remote
+* `node["jbossas7"]["domain"]["master"]["port"]` - remote
   domain master port, defaults to 9999
-* `node["jboss-eap6"]["jbossas"]["domain"]["name"]` - for multiple clusters,
+* `node["jbossas7"]["domain"]["name"]` - for multiple clusters,
   defaults to nil
 
 ## Recipes
 
-* `recipe[wharton-jboss-eap6]` will install and enable JBoss EAP 6
+* `recipe[jbossas7]` will install and configure JBoss AS 7
+* `recipe[jbossas7::configuration]` attribute-driven configuration
+* `recipe[jbossas7::eap6]` will install and configure Red Hat JBoss EAP 6
+  (includes AS 7)
 
 ## Usage
 
@@ -52,19 +55,17 @@ domain setup.
 * If you don't already have a ManagementRealm username, password hash, and
   secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
 * Create attributes, example below
-* Add `recipe[wharton-jboss-eap6]` to your node's run list
+* Add `recipe[jbossas7]`/`recipe[jbossas7::eap6]` to your node's run list
 
 Example attributes with localhost management interface:
-    "jboss-eap6" => {
-      "jbossas" => {
-        "bind" => {
-          "public" => "0.0.0.0"
-        },
-        "mgmt-users" => {
-          "admin" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
-          }
+    "jbossas7" => {
+      "bind" => {
+        "public" => "0.0.0.0"
+      },
+      "mgmt-users" => {
+        "admin" => {
+          "password" => "add-user.sh-hash-of-password",
+          "secret" => "add-user.sh-secret-of-password"
         }
       }
     }
@@ -74,9 +75,11 @@ Example attributes with localhost management interface:
 * If you don't already have a ManagementRealm username, password hash, and
   secret, generate one via `$JBOSS_HOME/bin/add-user.sh`
 * Create attributes for master instance, example below
-* Add `recipe[wharton-jboss-eap6]` to your master's run list and run it
+* Add `recipe[jbossas7]`/`recipe[jbossas7::eap6]` to your master's run list and
+  run it
 * Create attributes for slave instances, example below
-* Add `recipe[wharton-jboss-eap6]` to your slaves' run list and run it
+* Add `recipe[jbossas7]`/`recipe[jbossas7::eap6]` to your slaves' run list and
+  run it
   * _note_: startup will fail the first time; its okay! the master needs to
     reconverge with the new slave authentication data before the slave will
     start
@@ -84,47 +87,43 @@ Example attributes with localhost management interface:
 ### Domain Master Instance
 
 Example attributes with remotely accessible management interface:
-    "jboss-eap6" => {
-      "jbossas" => {
-        "bind" => {
-          "management" => "0.0.0.0"
-        },
-        "mgmt-users" => {
-          "admin" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
-          }
-        },
-        "mode" => "domain"
-      }
+    "jbossas7" => {
+      "bind" => {
+        "management" => "0.0.0.0"
+      },
+      "mgmt-users" => {
+        "admin" => {
+          "password" => "add-user.sh-hash-of-password",
+          "secret" => "add-user.sh-secret-of-password"
+        }
+      },
+      "mode" => "domain"
     }
 
 ### Domain Slave Instance
 
 _PLEASE NOTE_: you can omit
-`node["jboss-eap6"]["jbossas"]["domain"]["master"]["address"]` - it will
+`node["jbossas7"]["domain"]["master"]["address"]` - it will
 auto-discover if possible
 
 Example attributes with remotely accessible management (required) and public
 interfaces:
-    "jboss-eap6" => {
-      "jbossas" => {
-        "bind" => {
-          "management" => "0.0.0.0",
-          "public" => "0.0.0.0"
-        },
-        "domain" => {
-          "host_type" => "slave",
-          "master" => { "address" => "X.X.X.X" }
-        }
-        "mgmt-users" => {
-          "admin" => {
-            "password" => "add-user.sh-hash-of-password",
-            "secret" => "add-user.sh-secret-of-password"
-          }
-        },
-        "mode" => "domain"
+    "jbossas7" => {
+      "bind" => {
+        "management" => "0.0.0.0",
+        "public" => "0.0.0.0"
+      },
+      "domain" => {
+        "host_type" => "slave",
+        "master" => { "address" => "X.X.X.X" }
       }
+      "mgmt-users" => {
+        "admin" => {
+          "password" => "add-user.sh-hash-of-password",
+          "secret" => "add-user.sh-secret-of-password"
+        }
+      },
+      "mode" => "domain"
     }
 
 ## License and Author
