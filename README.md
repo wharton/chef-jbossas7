@@ -61,6 +61,7 @@ domain setup.
 * Add `recipe[jbossas7]`/`recipe[jbossas7::eap6]` to your node's run list
 
 Example attributes with localhost management interface:
+
     "jbossas7" => {
       "bind" => {
         "public" => "0.0.0.0"
@@ -90,6 +91,7 @@ Example attributes with localhost management interface:
 ### Domain Master Instance
 
 Example attributes with remotely accessible management interface:
+
     "jbossas7" => {
       "bind" => {
         "management" => "0.0.0.0"
@@ -111,6 +113,7 @@ auto-discover if possible
 
 Example attributes with remotely accessible management (required) and public
 interfaces:
+
     "jbossas7" => {
       "bind" => {
         "management" => "0.0.0.0",
