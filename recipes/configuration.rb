@@ -21,7 +21,7 @@ if JBossAS7.domain_slave?(node)
   JBossAS7.add_domain_master(node) unless JBossAS7.has_domain_master?(node)
 end
 
-template "#/etc/jbossas/jbossas.conf" do
+template "/etc/jbossas/jbossas.conf" do
   source "jbossas.conf.erb"
   owner "jboss"
   group "jboss"
