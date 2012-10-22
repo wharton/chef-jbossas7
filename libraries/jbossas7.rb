@@ -76,7 +76,7 @@ class Chef::Recipe::JBossAS7
   end
 
   def self.has_domain_master?(node)
-    domain_slave?(node) && node["jbossas7"]["domain"]["master"]["address"]
+    node["jbossas7"]["domain"]["master"]["address"]
   end
 
   def self.hostname_mgmt_user(node)

@@ -17,7 +17,9 @@
 # limitations under the License.
 #
 
-JBossAS7.add_domain_master(node) unless JBossAS7.has_domain_master?(node)
+if JBossAS7.domain_slave?(node)
+  JBossAS7.add_domain_master(node) unless JBossAS7.has_domain_master?(node)
+end
 
 template "#{node["jbossas7"]["home"]}/jbossas.conf" do
   source "jbossas.conf.erb"
