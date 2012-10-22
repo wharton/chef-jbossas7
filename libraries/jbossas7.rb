@@ -49,7 +49,12 @@ class Chef::Recipe::JBossAS7
   end
 
   def self.domain_master(slave)
-    Chef::Search::Query.new.search(:node, "chef_environment:#{slave.chef_environment} AND recipes:jbossas7") do |jboss_node|
+    Chef::Search::Query.new.search(:node,
+      ["chef_environment:#{slave.chef_environment}",
+      "AND","(",
+        "recipes:jbossas7",
+        "OR recipes:jbossas7\:\:eap6",
+      ")"].join(" ")) do |jboss_node|
       return jboss_node if domain_master?(jboss_node) && in_same_domain?(slave,jboss_node)
     end
     Chef::Application.fatal!("Could not find JBoss AS domain master for node")
@@ -69,7 +74,12 @@ class Chef::Recipe::JBossAS7
 
   def self.domain_slaves(master)
     slave_nodes = []
-    Chef::Search::Query.new.search(:node, "chef_environment:#{master.chef_environment} AND recipes:jbossas7") do |jboss_node|
+    Chef::Search::Query.new.search(:node,
+      ["chef_environment:#{master.chef_environment}",
+      "AND","(",
+        "recipes:jbossas7",
+        "OR recipes:jbossas7\:\:eap6",
+      ")"].join(" ")) do |jboss_node|
       slave_nodes << jboss_node if domain_slave?(jboss_node) && in_same_domain?(master,jboss_node)
     end
     slave_nodes
