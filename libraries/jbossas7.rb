@@ -53,7 +53,7 @@ class Chef::Recipe::JBossAS7
       ["chef_environment:#{slave.chef_environment}",
       "AND","(",
         "recipes:jbossas7",
-        "OR recipes:jbossas7\:\:eap6",
+        "OR recipes:jbossas7\\:\\:eap6",
       ")"].join(" ")) do |jboss_node|
       return jboss_node if domain_master?(jboss_node) && in_same_domain?(slave,jboss_node)
     end
@@ -78,7 +78,7 @@ class Chef::Recipe::JBossAS7
       ["chef_environment:#{master.chef_environment}",
       "AND","(",
         "recipes:jbossas7",
-        "OR recipes:jbossas7\:\:eap6",
+        "OR recipes:jbossas7\\:\\:eap6",
       ")"].join(" ")) do |jboss_node|
       slave_nodes << jboss_node if domain_slave?(jboss_node) && in_same_domain?(master,jboss_node)
     end
