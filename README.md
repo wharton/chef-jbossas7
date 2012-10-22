@@ -22,8 +22,6 @@ domain setup.
   []
 * `node["jbossas7"]["mode"]` - JBoss AS server mode - "domain" or
   "standalone", defaults to "standalone"
-* `node["jbossas7"]["packages"]` - JBoss AS server installation
-  packages, see defaults in `attributes/default.rb`
 
 * `node["jbossas7"]["bind"]["management"]` - JBoss AS server
   binding IP for management interface, defaults to "127.0.0.1"
@@ -40,6 +38,11 @@ domain setup.
   domain master port, defaults to 9999
 * `node["jbossas7"]["domain"]["name"]` - for multiple clusters,
   defaults to nil
+
+### JBoss EAP6 Specific Attributes
+
+* `node["jbossas7"]["eap6"]["packages"]` - JBoss EAP6 server installation
+  packages, see defaults in `attributes/default.rb`
 
 ## Recipes
 
