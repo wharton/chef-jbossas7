@@ -1,4 +1,4 @@
-# chef-jbossas7
+# chef-jbossas7 [![Build Status](https://secure.travis-ci.org/wharton/chef-jbossas7.png?branch=master)](http://travis-ci.org/wharton/chef-jbossas7)
 
 ## Description
 
