@@ -52,7 +52,7 @@ class Chef::Recipe::JBossAS7
     Chef::Search::Query.new.search(:node, "chef_environment:#{slave.chef_environment} AND recipes:jbossas7") do |jboss_node|
       return jboss_node if domain_master?(jboss_node) && in_same_domain?(slave,jboss_node)
     end
-    Chef::Log.fatal("Could not find JBoss AS domain master for node")
+    Chef::Application.fatal!("Could not find JBoss AS domain master for node")
   end
 
   def self.domain_master?(node)
