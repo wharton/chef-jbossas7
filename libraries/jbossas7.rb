@@ -19,7 +19,8 @@
 
 class Chef::Recipe::JBossAS7
   def self.add_domain_master(slave)
-    slave["jbossas7"]["domain"]["master"]["address"] = domain_master(slave)["hostname"]
+    master = domain_master(slave)
+    slave["jbossas7"]["domain"]["master"]["address"] = master["jbossas7"]["hostname"]
   end
 
   def self.add_domain_slaves_mgmt_users(master)
