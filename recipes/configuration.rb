@@ -27,7 +27,7 @@ template "#{node["jbossas7"]["home"]}/jbossas.conf" do
   notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
-if JBossAS7.master?(node)
+if JBossAS7.domain_master?(node)
   template "#{node["jbossas7"]["home"]}/#{node["jbossas7"]["mode"]}/host-master.xml" do
     source "host-master-initial.xml.erb"
     owner "jboss"
