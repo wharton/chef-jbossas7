@@ -27,6 +27,17 @@ template "#{node["jbossas7"]["home"]}/jbossas.conf" do
   notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
+if JBossAS7.master?(node)
+  template "#{node["jbossas7"]["home"]}/#{node["jbossas7"]["mode"]}/host-master.xml" do
+    source "host-master-initial.xml.erb"
+    owner "jboss"
+    group "jboss"
+    mode "0644"
+    only_if "grep -q 'name=\"master\"' #{node["jbossas7"]["home"]}/#{node["jbossas7"]["mode"]}/host-master.xml"
+    notifies :restart, resources(:service => "jbossas"), :delayed
+  end
+end
+
 if JBossAS7.domain_slave?(node)
   JBossAS7.create_hostname_mgmt_user(node) unless JBossAS7.hostname_mgmt_user(node)
 
