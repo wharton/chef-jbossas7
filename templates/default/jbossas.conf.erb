@@ -35,6 +35,10 @@
 # JAVA_HOME=/usr/lib/jvm/jre
 # Uncomment the following for location of java in the SDK
 # JAVA_HOME=/usr/lib/jvm/java
+<% if node["java"] -%>
+JAVA_HOME=<%= node["java"]["java_home"] %>
+<% end -%>
+
 #
 # Define where jboss is - this is the directory containing directories appclient, bin, bundles, docs, domain etc
 JBOSS_HOME="/usr/share/jbossas"
