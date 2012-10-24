@@ -1,3 +1,4 @@
+name              "jbossas7"
 maintainer        "The Wharton School - The University of Pennsylvania"
 maintainer_email  "bflad@wharton.upenn.edu"
 license           "Apache 2.0"
@@ -9,8 +10,4 @@ recipe            "jbossas7::eap6", "Red Hat JBoss EAP6 installation and configu
 
 %w{ redhat }.each do |os|
   supports os
-end
-
-%w{ jbossas7 }.each do |d|
-  depends d
 end
