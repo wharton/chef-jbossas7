@@ -17,11 +17,12 @@
 # limitations under the License.
 #
 
-default["jbossas7"]["home"]            = "/usr/share/jbossas"
-default["jbossas7"]["hostname"]        = node["hostname"].gsub(/[-_]/,"")
-default["jbossas7"]["LD_LIBRARY_PATH"] = nil
-default["jbossas7"]["mgmt-users"]      = []
-default["jbossas7"]["mode"]            = "standalone"
+default["jbossas7"]["home"]                      = "/usr/share/jbossas"
+default["jbossas7"]["hostname"]                  = node["hostname"].gsub(/[-_]/,"")
+default["jbossas7"]["JBOSS_MODULES_SYSTEM_PKGS"] = []
+default["jbossas7"]["LD_LIBRARY_PATH"]           = nil
+default["jbossas7"]["mgmt-users"]                = []
+default["jbossas7"]["mode"]                      = "standalone"
 
 default["jbossas7"]["bind"]["public"]     = "127.0.0.1"
 default["jbossas7"]["bind"]["management"] = "127.0.0.1"
@@ -53,8 +54,6 @@ default["jbossas7"]["eap6"]["packages"] = %w{
   jbossas-standalone
   jbossas-welcome-content-eap
 }
-
-default["jbossas7"]["modules"]["sun"]["jdk"]["main"]["paths"] = []
 
 default["jbossas7"]["standalone"]["JAVA_OPTS"]  = %w{
   -Xms1303m

@@ -41,6 +41,9 @@
 
 if [ "x$JBOSS_MODULES_SYSTEM_PKGS" = "x" ]; then
    JBOSS_MODULES_SYSTEM_PKGS="org.jboss.byteman"
+   <% node["jbossas7"]["JBOSS_MODULES_SYSTEM_PKGS"].each do |pkg| -%>
+   JBOSS_MODULES_SYSTEM_PKGS="$JBOSS_MODULES_SYSTEM_PKGS,<%= pkg %>"
+   <% end -%>
 fi
 
 # Uncomment the following line to prevent manipulation of JVM options
