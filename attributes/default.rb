@@ -53,6 +53,8 @@ default["jbossas7"]["eap6"]["packages"] = %w{
   jbossas-welcome-content-eap
 }
 
+default["jbossas7"]["modules"]["sun"]["jdk"]["main"]["paths"] = []
+
 default["jbossas7"]["standalone"]["JAVA_OPTS"]  = %w{
   -Xms1303m
   -Xmx1303m
