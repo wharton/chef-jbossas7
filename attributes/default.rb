@@ -27,6 +27,15 @@ default["jbossas7"]["bind"]["management"] = "127.0.0.1"
 default["jbossas7"]["bind"]["unsecure"]   = "127.0.0.1"
 
 default["jbossas7"]["domain"]["host_type"]         = "master"
+default["jbossas7"]["domain"]["JAVA_OPTS"]         = %w{
+  -Xms64m
+  -Xmx512m
+  -XX:MaxPermSize=256m
+  -Djava.net.preferIPv4Stack=true
+  -Dorg.jboss.resolver.warning=true
+  -Dsun.rmi.dgc.client.gcInterval=3600000
+  -Dsun.rmi.dgc.server.gcInterval=3600000
+}
 default["jbossas7"]["domain"]["master"]["address"] = nil
 default["jbossas7"]["domain"]["master"]["port"]    = 9999
 default["jbossas7"]["domain"]["name"]              = nil
@@ -42,4 +51,14 @@ default["jbossas7"]["eap6"]["packages"] = %w{
   jbossas-product-eap
   jbossas-standalone
   jbossas-welcome-content-eap
+}
+
+default["jbossas7"]["standalone"]["JAVA_OPTS"]  = %w{
+  -Xms1303m
+  -Xmx1303m
+  -XX:MaxPermSize=256m
+  -Djava.net.preferIPv4Stack=true
+  -Dorg.jboss.resolver.warning=true
+  -Dsun.rmi.dgc.client.gcInterval=3600000
+  -Dsun.rmi.dgc.server.gcInterval=3600000
 }

@@ -29,6 +29,14 @@ template "/etc/jbossas/jbossas.conf" do
   notifies :restart, resources(:service => "jbossas"), :delayed
 end
 
+template "#{node["jbossas7"]["home"]}/bin/#{node["jbossas7"]["mode"]}.conf" do
+  source "#{node["jbossas7"]["mode"]}.conf.erb"
+  owner "jboss"
+  group "jboss"
+  mode "0644"
+  notifies :restart, resources(:service => "jbossas"), :delayed
+end
+
 if JBossAS7.domain_master?(node)
   template "#{node["jbossas7"]["home"]}/domain/configuration/host-master.xml" do
     source "host-master-initial.xml.erb"
