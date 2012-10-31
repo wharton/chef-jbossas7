@@ -70,12 +70,3 @@ template "#{node["jbossas7"]["home"]}/#{node["jbossas7"]["mode"]}/configuration/
   group "jboss"
   mode "0644"
 end
-
-template "#{node["jbossas7"]["home"]}/modules/sun/jdk/main/module.xml" do
-  source "module.xml.erb"
-  owner "jboss"
-  group "jboss"
-  mode "0644"
-  notifies :restart, resources(:service => "jbossas"), :delayed
-end
-
