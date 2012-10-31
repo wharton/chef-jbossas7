@@ -74,3 +74,7 @@ fi
 # Sample JPDA settings for shared memory debugging
 #PROCESS_CONTROLLER_JAVA_OPTS="$PROCESS_CONTROLLER_JAVA_OPTS -Xrunjdwp:transport=dt_shmem,server=y,suspend=n,address=jboss"
 #HOST_CONTROLLER_JAVA_OPTS="$HOST_CONTROLLER_JAVA_OPTS -Xrunjdwp:transport=dt_shmem,server=y,suspend=n,address=jboss"
+
+<% if node["jbossas7"]["LD_LIBRARY_PATH"] -%>
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<%= node["jbossas7"]["LD_LIBRARY_PATH"] %>
+<% end -%>

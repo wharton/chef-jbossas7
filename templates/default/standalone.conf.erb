@@ -70,3 +70,7 @@ fi
 
 # Uncomment to gather JBoss Modules metrics
 #JAVA_OPTS="$JAVA_OPTS -Djboss.modules.metrics=true"
+
+<% if node["jbossas7"]["LD_LIBRARY_PATH"] -%>
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:<%= node["jbossas7"]["LD_LIBRARY_PATH"] %>
+<% end -%>
